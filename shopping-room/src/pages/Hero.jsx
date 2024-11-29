@@ -38,7 +38,7 @@ const Hero = () => {
               <p className="text-lg md:text-xl mb-6">
                 Explore the best in {product?.category ?? "this category"}.
               </p>
-              <Link to={product.category} >
+              <Link to={`/category/${product.category}`} >
               <button  className="px-6 py-2 bg-gold text-white rounded-md hover:bg-yellow-500 transition">
                 Shop Now
               </button>

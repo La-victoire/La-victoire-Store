@@ -5,7 +5,7 @@ import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import './SearchBar.css';
 import { AuthContext } from './AuthProvider';
 import { IoBagCheckOutline } from "react-icons/io5";
-
+import { TbLogout2 } from "react-icons/tb";
 
 const Header = () => {
   const { products } = useContext(ProductContext); // Access context here
@@ -81,11 +81,11 @@ const Header = () => {
                       className="block py-2 px-4 text-black hover:cursor-pointer hover:bg-gray-200"
                       onClick={handleLogout}
                     >
-                      Logout
+                      <TbLogout2 title='Logout' size={24}/>
                     </li>
                     <Link to='/checkout'>
-                    <li title='Checkout ' className='rounded pl-7 pb-2 justify-center text-center hover:bg-gray-200 block'>
-                    <IoBagCheckOutline size={24} className=' text-black border' />
+                    <li title='Checkout ' className='rounded px-4 py-2 hover:bg-gray-200 block'>
+                    <IoBagCheckOutline size={24} className=' text-black' />
                     </li>
                     </Link>
                   </ul>
