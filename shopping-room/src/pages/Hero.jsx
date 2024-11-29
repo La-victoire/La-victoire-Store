@@ -3,6 +3,7 @@ import "swiper/swiper-bundle.css"; // Ensure Swiper styles are imported
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules"; // Import directly from 'swiper/modules'
 import { ProductContext } from "./ProductProvider";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { products } = useContext(ProductContext);
@@ -37,9 +38,11 @@ const Hero = () => {
               <p className="text-lg md:text-xl mb-6">
                 Explore the best in {product?.category ?? "this category"}.
               </p>
-              <button className="px-6 py-2 bg-gold text-white rounded-md hover:bg-yellow-500 transition">
+              <Link to={product.category} >
+              <button  className="px-6 py-2 bg-gold text-white rounded-md hover:bg-yellow-500 transition">
                 Shop Now
               </button>
+              </Link>
             </div>
           </div>
         </SwiperSlide>

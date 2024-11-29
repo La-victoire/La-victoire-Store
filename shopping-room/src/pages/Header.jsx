@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import './SearchBar.css';
 import { AuthContext } from './AuthProvider';
+import { IoBagCheckOutline } from "react-icons/io5";
+
 
 const Header = () => {
   const { products } = useContext(ProductContext); // Access context here
@@ -74,13 +76,18 @@ const Header = () => {
               />
               {user && isDropdownOpen? (
                 <div className="absolute right-0 mt-2 bg-white border rounded shadow-md z-10">
-                  <ul>
+                  <ul >
                     <li
                       className="block py-2 px-4 text-black hover:cursor-pointer hover:bg-gray-200"
                       onClick={handleLogout}
                     >
                       Logout
                     </li>
+                    <Link to='/checkout'>
+                    <li title='Checkout ' className='rounded pl-7 pb-2 justify-center text-center hover:bg-gray-200 block'>
+                    <IoBagCheckOutline size={24} className=' text-black border' />
+                    </li>
+                    </Link>
                   </ul>
                 </div>
               ):!isDropdownclose && (

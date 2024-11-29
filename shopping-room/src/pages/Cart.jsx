@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { CartContext } from './CartProvider';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const Cart = () => {
   const { proceedToCheckout,cart, removeFromCart } = useContext(CartContext);
@@ -38,6 +40,7 @@ const Cart = () => {
 
           {/* Action Buttons */}
           <div className="mt-4 md:mt-0 flex flex-col space-y-4">
+           <Link to='/checkout'>
             <button
               className="bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 
                 text-white font-semibold text-sm md:text-base px-6 py-2 rounded-md shadow-md 
@@ -47,6 +50,8 @@ const Cart = () => {
             >
               Proceed to Checkout
             </button>
+           </Link>
+           
             <button
               className="px-6 py-2 bg-red-600 text-white font-semibold text-sm md:text-base 
                 rounded-md shadow-md hover:bg-red-700 hover:shadow-lg 

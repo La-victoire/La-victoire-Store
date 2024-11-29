@@ -1,20 +1,24 @@
-const express = require("express");
-const Stripe = require("stripe");
-const cors = require("cors");
-require("dotenv").config();
+import express from 'express';
+import Stripe from 'stripe';
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
   typescript: false,
-  maxNetworkRetries: 2,}); // Add your Stripe secret key in .env file
+  maxNetworkRetries: 2,
+});
 
 app.use(cors());
-app.use(express.json()); // Parse JSON requests
+app.use(express.json());
 
 // Route to create a payment intent
 app.post("/create-payment-intent", async (req, res) => {
-  const { amount, currency } = req.body; // Amount in smallest currency unit, e.g., cents
+  const { amount, currency } = req.body;
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
@@ -24,9 +28,7 @@ app.post("/create-payment-intent", async (req, res) => {
       },
     });
 
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
+    res.send({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

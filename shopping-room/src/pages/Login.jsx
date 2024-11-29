@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './AuthProvider';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import {FaGoogle} from "react-icons/fa";
+import {FcGoogle} from "react-icons/fc";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,7 +40,7 @@ const Login = () => {
       onSubmit={handleLogin}
       className="bg-white p-6 rounded-lg shadow-lg w-80 border-2 border-yellow-500"
     >
-      <FaGoogle className='text-gray-300 mb-3' size={24} onClick={handleGoogleLogin} > </FaGoogle>
+      <FcGoogle className='cursor-pointer mb-3' size={24} onClick={handleGoogleLogin} > </FcGoogle>
       <h2 className="text-2xl font-bold mb-4 text-yellow-600">Log In</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <input

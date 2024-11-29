@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ProtectedRoute from './pages/ProtectedRoute';
 import CheckoutPage from './pages/CheckoutPage';
+import Categories from './pages/Categories';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage products={products} />} />
           <Route path="/preview/:id" element={<ItemPreview products={products} />} />
+          <Route path="/Category/:id" element={<Categories products={products} />} />
           <Route
             path="/Cart"
             element={

@@ -1,41 +1,47 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from "react";
 
 // Create the context
 export const CartContext = createContext();
 
-// CartProvider Component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [checkout, setCheckout] = useState([]);
-  useEffect(()=> {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Initialize cart and checkout from local storage
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
   }, []);
 
-  useEffect(()=> {
-    const storedCheckout = JSON.parse(localStorage.getItem('checkout ')) || [];
+  useEffect(() => {
+    const storedCheckout = JSON.parse(localStorage.getItem("checkout")) || [];
     setCheckout(storedCheckout);
   }, []);
 
+  // Save cart and checkout to local storage
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   useEffect(() => {
-    localStorage.setItem('checkout', JSON.stringify(checkout));
+    localStorage.setItem("checkout", JSON.stringify(checkout));
   }, [checkout]);
 
+  // Add product to checkout
   const proceedToCheckout = (product) => {
-    setCheckout((prev) => {
-      const itemInCheckout = prev.find((item) => item.id === product.id);
+    setCheckout((prevCheckout) => {
+      const itemInCheckout = prevCheckout.find((item) => item.id === product.id);
       if (itemInCheckout) {
-        return prev.map((item) => item.id === product.id
-        ? { ...item, quantity: item.quantity + 1 } : item
-    )}else{
-      return [...prev, { ...product, quantity: 1 }];
-    }
-  })
-  }
+        return prevCheckout.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + product.quantity }
+            : item
+        );
+      } else {
+        return [...prevCheckout, { ...product }];
+      }
+    });
+  };
 
   // Add item to cart
   const addToCart = (product) => {
@@ -48,7 +54,6 @@ export const CartProvider = ({ children }) => {
             : item
         );
       } else {
-        // Basically this is the function that adds the product 
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
@@ -56,18 +61,22 @@ export const CartProvider = ({ children }) => {
 
   // Remove item from cart
   const removeFromCart = (productId) => {
-    setCart((prevCart) => 
-      prevCart.map((item) => item.id === productId
-        ? {...item, quantity: item.quantity-1}  // Decrement quantity
-        : item
-  )
-  .filter((item) => item.quantity > 0 ) // Remove items with quantity of 0
-);
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   return (
-    <CartContext.Provider value={{ cart, checkout,proceedToCheckout, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, checkout, proceedToCheckout, addToCart, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );
-}
+};

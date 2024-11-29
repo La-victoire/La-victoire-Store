@@ -14,7 +14,7 @@ export const ProductProvider = ({ children }) => {
         setProducts(data.products || []);
         setLoading(false);
       
-        
+        console.log(firebaseConfig);
         
       } catch (error) {
         console.error('Error fetching products:', error);
