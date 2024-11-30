@@ -91,17 +91,22 @@ const Header = () => {
                   </ul>
                 </div>
               ):!isDropdownclose && (
-               <Link to='/Signup'>
                 <div className="absolute right-0 mt-2 bg-white border rounded shadow-md z-10">
                   <ul>
+                  <Link to='/Signup'>
                     <li
                       className="block py-2 px-6 text-nowrap text-black hover:cursor-pointer hover:bg-gray-200"
                     >
                       Sign Up
                     </li>
+               </Link>
+              <Link to='/Login'>
+              <li title='Login' className='rounded px-8 py-2 text-black hover:bg-gray-200 block'>
+                Login
+              </li>
+              </Link>
                   </ul>
                 </div>
-               </Link>
               )}
             </li>
             {/* user icon */}
