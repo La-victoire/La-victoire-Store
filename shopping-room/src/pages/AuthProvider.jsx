@@ -32,9 +32,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = (email, password) => {
+  const signup = async (email, password) => {
     // signup logic 
-    createUserWithEmailAndPassword(auth, email, password);
+    try {
+      const userCreate = await createUserWithEmailAndPassword( email, password);
+      console.log('Account Created', userCreate.user)
+    } catch (error) {
+      console.error('Error during SignUp:', error.message);
+      handleFirebaseError(error);
+    }
+    navigate('/'); 
+    
     };
 
   const login = async (email, password) => {
@@ -42,11 +50,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('User signed in:', userCredential.user);
+      // navigate('/') // Redirect to original route or home
     } catch (error) {
       console.error('Error during login:', error.message);
       handleFirebaseError(error);
+      alert('invalid credentials')
     }
-    navigate('/'); // Redirect to original route or home
   };
 
   const logout = () => {
@@ -77,7 +86,7 @@ export const AuthProvider = ({ children }) => {
  
   
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout,googleLogin, clearLocalStorage}}>
+    <AuthContext.Provider value={{ user, signup , login, logout,googleLogin,handleFirebaseError,clearLocalStorage}}>
       {!loading && children}
     </AuthContext.Provider>
   );
