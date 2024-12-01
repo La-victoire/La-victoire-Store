@@ -17,7 +17,7 @@ const Categories = ({products}) => {
           {filteredProducts.map((product) => (
             <li key={product.id} className="bg-white shadow-md p-4 rounded-lg">
               <img
-                src={product.image}
+                src={product.images}
                 alt={product.title}
                 className="w-full h-48 object-cover mb-4"
               />
